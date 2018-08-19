@@ -54,7 +54,7 @@ class TestUserService(BaseTestCase):
             self.assertEqual(response.status_code, 400)
             self.assertIn('Invalid payload', data['message'])
             self.assertIn('fail', data['status'])
-    
+
     def test_add_invalid_json_keys(self):
         """
         Ensure error is thrown if the JSON object does not have a username key
@@ -91,7 +91,7 @@ class TestUserService(BaseTestCase):
             )
             data = json.loads(response.data.decode())
             self.assertIn(
-            'Sorry. That email already exists.', data['message'])
+                'Sorry. That email already exists.', data['message'])
             self.assertIn('fail', data['status'])
 
     def test_single_user(self):
@@ -135,9 +135,15 @@ class TestUserService(BaseTestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(len(data['data']['users']), 2)
             self.assertIn('kenessa', data['data']['users'][0]['username'])
-            self.assertIn('jeanremy1806@gmail.com', data['data']['users'][0]['email'])
+            self.assertIn(
+                'jeanremy1806@gmail.com',
+                data['data']['users'][0]['email']
+            )
             self.assertIn('fletcher', data['data']['users'][1]['username'])
-            self.assertIn('fletcher@notreal.com', data['data']['users'][1]['email'])
+            self.assertIn(
+                'fletcher@notreal.com',
+                data['data']['users'][1]['email']
+            )
             self.assertIn('success', data['status'])
 
     def test_main_with_users(self):
@@ -165,7 +171,7 @@ class TestUserService(BaseTestCase):
             self.assertIn(b'All Users', response.data)
             self.assertNotIn(b'<p>No users!</p>', response.data)
             self.assertIn(b'kenessa', response.data)
-            
+
 
 if __name__ == '__main__':
     unittest.main()
